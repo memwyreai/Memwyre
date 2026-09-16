@@ -58,6 +58,7 @@
       "pages": [
         "integrations/plugins/openclaw",
         "integrations/plugins/claude",
+        "integrations/plugins/opencode",
         "integrations/plugins/grok"
       ]
     }
