@@ -57,7 +57,8 @@
       "group": "Plugins",
       "pages": [
         "integrations/plugins/openclaw",
-        "integrations/plugins/claude"
+        "integrations/plugins/claude",
+        "integrations/plugins/grok"
       ]
     }
   ],

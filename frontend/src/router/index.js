@@ -195,6 +195,20 @@ export function createAppRouter({ ssr = false } = {}) {
                         redirect: '/ai-memory-benchmark-locomo'
                     },
                     {
+                        path: 'research/locomo-benchmark',
+                        redirect: '/ai-memory-benchmark-locomo'
+                    },
+                    {
+                        path: 'blog/vector-database-vs-agent-memory',
+                        redirect: '/research/vector-database-vs-agent-memory'
+                    },
+                    {
+                        path: 'research/vector-database-vs-agent-memory',
+                        name: 'vector-db-vs-agent-memory',
+                        component: () => import('../views/VectorDbVsAgentMemoryView.vue'),
+                        meta: { requiresAuth: false, seo: PUBLIC_ROUTE_SEO['/research/vector-database-vs-agent-memory'] }
+                    },
+                    {
                         path: 'research/context-engineering',
                         name: 'context-engineering',
                         component: () => import('../views/ContextEngineeringView.vue'),
@@ -263,28 +277,118 @@ export function createAppRouter({ ssr = false } = {}) {
                         name: 'mcp-memory',
                         component: () => import('../views/integrations/McpMemoryView.vue'),
                         meta: { requiresAuth: false, seo: PUBLIC_ROUTE_SEO['/mcp-memory'] }
+                    },
+                    {
+                        path: 'openclaw-memory',
+                        name: 'openclaw-memory',
+                        component: () => import('../views/integrations/OpenClawMemoryView.vue'),
+                        meta: { requiresAuth: false, seo: PUBLIC_ROUTE_SEO['/openclaw-memory'] }
+                    },
+                    {
+                        path: 'grok-memory',
+                        name: 'grok-memory',
+                        component: () => import('../views/integrations/GrokMemoryView.vue'),
+                        meta: { requiresAuth: false, seo: PUBLIC_ROUTE_SEO['/openclaw-memory'] }
+                    },
+                    {
+                        path: 'opencode-memory',
+                        name: 'opencode-memory',
+                        component: () => import('../views/integrations/OpenCodeMemoryView.vue'),
+                        meta: { requiresAuth: false, seo: PUBLIC_ROUTE_SEO['/opencode-memory'] }
                     }
                 ]
             },
 
+            // ── Authenticated App Shell (sidebar + top bar) ──────────────
             {
-                path: '/dashboard',
-                name: 'dashboard',
-                component: () => import('../views/DashboardView.vue'),
-                meta: { requiresAuth: true }
+                path: '/',
+                component: () => import('../views/AppLayout.vue'),
+                meta: { requiresAuth: true },
+                children: [
+                    {
+                        path: 'dashboard',
+                        name: 'dashboard',
+                        component: () => import('../views/DashboardView.vue'),
+                    },
+                    {
+                        path: 'inbox',
+                        name: 'inbox',
+                        component: () => import('../views/InboxView.vue'),
+                    },
+                    {
+                        path: 'projects',
+                        name: 'projects',
+                        component: () => import('../views/ProjectsView.vue'),
+                    },
+                    {
+                        path: 'settings',
+                        name: 'settings',
+                        component: () => import('../views/SettingsView.vue'),
+                    },
+                    {
+                        path: 'billing',
+                        name: 'billing',
+                        component: () => import('../views/BillingView.vue'),
+                    },
+                    {
+                        path: 'integrations',
+                        name: 'integrations',
+                        component: () => import('../views/IntegrationsView.vue'),
+                    },
+                    {
+                        path: 'integrations/:id',
+                        name: 'integration-detail',
+                        component: () => import('../views/IntegrationsView.vue'),
+                    },
+                    {
+                        path: 'editor/:id',
+                        name: 'editor',
+                        component: () => import('../views/EditorView.vue'),
+                    },
+                    {
+                        path: 'prompts',
+                        name: 'prompts',
+                        component: () => import('../views/PromptGeneratorView.vue'),
+                    },
+                    {
+                        path: 'map',
+                        name: 'map',
+                        component: () => import('../views/MemoryMapView.vue'),
+                    },
+                    {
+                        path: 'chat',
+                        name: 'chat',
+                        component: () => import('../views/ChatView.vue'),
+                    },
+                    {
+                        path: 'chat/:id',
+                        name: 'chat-session',
+                        component: () => import('../views/ChatView.vue'),
+                    },
+                    {
+                        path: 'billing',
+                        name: 'billing',
+                        component: () => import('../views/BillingView.vue'),
+                    },
+                    {
+                        path: 'admin',
+                        name: 'admin-insights',
+                        component: () => import('../views/AdminInsightsView.vue'),
+                    },
+                    {
+                        path: 'admin/bypass',
+                        name: 'admin-bypass',
+                        component: () => import('../views/AdminBypassView.vue'),
+                    },
+                    {
+                        path: 'retrieval-visualizer',
+                        name: 'retrieval-visualizer',
+                        component: () => import('../views/RetrievalVisualizerView.vue'),
+                    },
+                ]
             },
-            {
-                path: '/inbox',
-                name: 'inbox',
-                component: () => import('../views/InboxView.vue'),
-                meta: { requiresAuth: true }
-            },
-            {
-                path: '/projects',
-                name: 'projects',
-                component: () => import('../views/ProjectsView.vue'),
-                meta: { requiresAuth: true }
-            },
+
+            // ── Non-sidebar routes ──────────────────────────────
             {
                 path: '/login',
                 name: 'login',
@@ -309,71 +413,6 @@ export function createAppRouter({ ssr = false } = {}) {
                 path: '/reset-password',
                 name: 'reset-password',
                 component: () => import('../views/ResetPasswordView.vue')
-            },
-            {
-                path: '/settings',
-                name: 'settings',
-                component: () => import('../views/SettingsView.vue'),
-                meta: { requiresAuth: true }
-            },
-            {
-                path: '/integrations',
-                name: 'integrations',
-                component: () => import('../views/IntegrationsView.vue'),
-                meta: { requiresAuth: true }
-            },
-            {
-                path: '/editor/:id',
-                name: 'editor',
-                component: () => import('../views/EditorView.vue'),
-                meta: { requiresAuth: true }
-            },
-            {
-                path: '/prompts',
-                name: 'prompts',
-                component: () => import('../views/PromptGeneratorView.vue'),
-                meta: { requiresAuth: true }
-            },
-            {
-                path: '/map',
-                name: 'map',
-                component: () => import('../views/MemoryMapView.vue')
-            },
-            {
-                path: '/chat',
-                name: 'chat',
-                component: () => import('../views/ChatView.vue'),
-                meta: { requiresAuth: true }
-            },
-            {
-                path: '/chat/:id',
-                name: 'chat-session',
-                component: () => import('../views/ChatView.vue'),
-                meta: { requiresAuth: true }
-            },
-            {
-                path: '/billing',
-                name: 'billing',
-                component: () => import('../views/BillingView.vue'),
-                meta: { requiresAuth: true }
-            },
-            {
-                path: '/admin',
-                name: 'admin-insights',
-                component: () => import('../views/AdminInsightsView.vue'),
-                meta: { requiresAuth: true }
-            },
-            {
-                path: '/admin/bypass',
-                name: 'admin-bypass',
-                component: () => import('../views/AdminBypassView.vue'),
-                meta: { requiresAuth: true }
-            },
-            {
-                path: '/retrieval-visualizer',
-                name: 'retrieval-visualizer',
-                component: () => import('../views/RetrievalVisualizerView.vue'),
-                meta: { requiresAuth: true }
             },
             {
                 path: '/redeem',
@@ -419,6 +458,50 @@ export function createAppRouter({ ssr = false } = {}) {
     });
 
     router.beforeEach((to, from, next) => {
+        if (typeof window !== 'undefined') {
+            const hostname = window.location.hostname;
+            const APP_HOST = 'app.memwyre.tech';
+            const MAIN_HOST = 'memwyre.tech';
+
+            const APP_ROUTES = [
+                '/login', '/signup', '/verify-email', '/forgot-password', '/reset-password',
+                '/dashboard', '/inbox', '/projects', '/settings', '/integrations',
+                '/editor', '/prompts', '/map', '/chat', '/billing', '/admin',
+                '/retrieval-visualizer', '/redeem', '/slides', '/export-slide', '/demo'
+            ];
+
+            const isAppPath = APP_ROUTES.some(path => 
+                to.path === path || 
+                to.path === path + '/' || 
+                to.path.startsWith(path + '/')
+            );
+
+            // 1. On main domain (memwyre.tech / www.memwyre.tech), ONLY redirect app routes
+            if (hostname === MAIN_HOST || hostname === `www.${MAIN_HOST}`) {
+                if (isAppPath) {
+                    window.location.href = `https://${APP_HOST}${to.fullPath}`;
+                    return;
+                }
+            }
+
+            // 2. On app domain (app.memwyre.tech)
+            if (hostname === APP_HOST) {
+                if (to.path === '/' || to.path === '') {
+                    const authStore = useAuthStore();
+                    if (authStore.isAuthenticated) {
+                        next('/dashboard');
+                    } else {
+                        next('/login');
+                    }
+                    return;
+                }
+                if (!isAppPath) {
+                    window.location.href = `https://${MAIN_HOST}${to.fullPath}`;
+                    return;
+                }
+            }
+        }
+
         const authStore = useAuthStore();
 
         // If accessing a protected route and not authenticated, redirect to login

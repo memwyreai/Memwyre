@@ -1,0 +1,13 @@
+{
+  "id": "memwyre",
+  "name": "Memwyre",
+  "version": "1.0.0",
+  "description": "Persistent memory and automated session lifecycle hooks for Grok Build. Injects past project context on SessionStart, captures session transcripts on Stop.",
+  "author": {
+    "name": "Memwyre",
+    "email": "support@memwyre.tech",
+    "url": "https://memwyre.tech"
+  },
+  "license": "Apache-2.0",
+  "hooks": "./hooks/hooks.json"
+}

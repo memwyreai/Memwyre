@@ -25,29 +25,12 @@
               Memwyre plugins for Claude Code, OpenClaw, OpenCode, and Hermes Agent. One-click memory save, automatic context injection, and project-scoped knowledge.
             </p>
             
-            <!-- Buttons with technical grid brackets -->
+            <!-- Buttons -->
             <div class="relative inline-flex p-3 mt-4 sm:mt-6 border border-dashed border-gray-300 rounded max-w-max z-20">
-              <!-- Corner Brackets (Crosshairs) -->
-              <div class="absolute -top-2 -left-2 w-4 h-4 pointer-events-none">
-                <div class="absolute top-2 left-0 w-full h-px bg-gray-400"></div>
-                <div class="absolute left-2 top-0 h-full w-px bg-gray-400"></div>
-              </div>
-              <div class="absolute -top-2 -right-2 w-4 h-4 pointer-events-none">
-                <div class="absolute top-2 left-0 w-full h-px bg-gray-400"></div>
-                <div class="absolute left-2 top-0 h-full w-px bg-gray-400"></div>
-              </div>
-              <div class="absolute -bottom-2 -left-2 w-4 h-4 pointer-events-none">
-                <div class="absolute top-2 left-0 w-full h-px bg-gray-400"></div>
-                <div class="absolute left-2 top-0 h-full w-px bg-gray-400"></div>
-              </div>
-              <div class="absolute -bottom-2 -right-2 w-4 h-4 pointer-events-none">
-                <div class="absolute top-2 left-0 w-full h-px bg-gray-400"></div>
-                <div class="absolute left-2 top-0 h-full w-px bg-gray-400"></div>
-              </div>
 
               <!-- Content (Buttons) -->
               <div class="flex flex-row items-center justify-start gap-3 sm:gap-4">
-                <router-link to="/signup/"
+                <router-link to="/signup"
                   class="w-auto px-4 py-2 sm:px-6 sm:py-3 bg-[#050614] text-white font-bold rounded hover:bg-gray-800 transition-all duration-300 shadow-md text-xs sm:text-sm inline-flex items-center justify-center gap-2">
                   Get Developer Plugins →
                 </router-link>
@@ -170,24 +153,31 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div v-for="agent in [
-            { name: 'Claude Code', desc: 'Auto-inject command line prompts & error summaries', logo: claudeLogo },
-            { name: 'OpenClaw', desc: 'Autonomous memory hooks for multi-agent workflows', logo: openclawLogo },
-            { name: 'OpenCode', desc: 'Shared coding patterns & architecture conventions', iconClass: 'fa-solid fa-code' },
-            { name: 'Hermes Agent', desc: 'Secure local-first knowledge extraction & scoping', iconClass: 'fa-solid fa-robot' }
-          ]" :key="agent.name" class="p-6 border border-gray-200 rounded bg-white hover:border-[#D97757]/30 transition-all duration-300 flex flex-col justify-between min-h-[200px]">
+          <component 
+            :is="agent.to ? 'router-link' : 'div'"
+            v-for="agent in [
+              { name: 'Claude Code', desc: 'Auto-inject command line prompts & error summaries', logo: claudeLogo, to: '/claude-memory' },
+              { name: 'Grok Build & Bot', desc: 'Persistent, cross-bot shared memory', logo: grokLogo, to: '/grok-memory' },
+              { name: 'OpenClaw', desc: 'Autonomous memory hooks for multi-agent workflows', logo: openclawLogo, to: '/openclaw-memory' },
+              { name: 'OpenCode', desc: 'Shared coding patterns & architecture conventions', iconClass: 'fa-solid fa-code', to: '/opencode-memory' },
+              { name: 'Hermes Agent', desc: 'Secure local-first knowledge extraction & scoping', iconClass: 'fa-solid fa-robot' }
+            ]" 
+            :key="agent.name" 
+            :to="agent.to"
+            class="p-6 border border-gray-200 rounded bg-white hover:border-[#D97757]/60 hover:shadow-md transition-all duration-300 flex flex-col justify-between min-h-[200px] cursor-pointer group"
+          >
             <div>
               <div class="flex items-center gap-3 mb-2">
                 <img v-if="agent.logo" :src="agent.logo" class="w-8 h-8 shrink-0 object-contain" :alt="agent.name" />
                 <div v-else-if="agent.iconClass" class="w-8 h-8 shrink-0 flex items-center justify-center text-gray-500 text-2xl">
                   <i :class="agent.iconClass"></i>
                 </div>
-                <div class="font-bold text-gray-900 text-base leading-tight">{{ agent.name }}</div>
+                <div class="font-bold text-gray-900 group-hover:text-[#D97757] transition-colors text-base leading-tight">{{ agent.name }}</div>
               </div>
               <p class="text-xs text-gray-500 leading-relaxed">{{ agent.desc }}</p>
             </div>
             <div class="text-[10px] font-mono text-green-600 font-bold uppercase tracking-wider mt-4">✔ plugin active</div>
-          </div>
+          </component>
         </div>
       </div>
 
@@ -233,7 +223,7 @@
         <p class="text-sm text-gray-500 max-w-md mx-auto mb-6">
           Give your AI agents a persistent long-term memory. Setup plugins in under 5 minutes.
         </p>
-        <router-link to="/signup/" class="inline-block px-8 py-3 bg-[#050614] text-white text-sm font-bold rounded hover:bg-gray-800 transition-all duration-300 shadow-md">
+        <router-link to="/signup" class="inline-block px-8 py-3 bg-[#050614] text-white text-sm font-bold rounded hover:bg-gray-800 transition-all duration-300 shadow-md">
           Get Developer Plugins
         </router-link>
       </div>
@@ -245,6 +235,7 @@
 
 <script setup>
 import claudeLogo from '@/assets/claude-color.svg';
+import grokLogo from '@/assets/grok-color.svg';
 import openclawLogo from '@/assets/openclaw-color.svg';
 import SiteFooter from '@/components/SiteFooter.vue';
 </script>

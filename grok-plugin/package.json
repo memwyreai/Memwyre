@@ -1,0 +1,28 @@
+{
+  "name": "@memwyre/grok-plugin",
+  "version": "1.0.0",
+  "description": "Persistent memory and automated session lifecycle hooks for Grok Build, powered by Memwyre.",
+  "type": "commonjs",
+  "scripts": {
+    "build": "node -e \"console.log('No build step needed — pure Node.js CJS scripts.')\"",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "plugin",
+    "banner.png"
+  ],
+  "keywords": [
+    "grok",
+    "grok-build",
+    "xai",
+    "plugin",
+    "memwyre",
+    "memory",
+    "hooks"
+  ],
+  "author": "Memwyre",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

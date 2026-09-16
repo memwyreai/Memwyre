@@ -1,0 +1,29 @@
+{
+  "description": "Memwyre: Persistent autonomous memory",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${GROK_PLUGIN_ROOT:-${CLAUDE_PLUGIN_ROOT}}/scripts/inject-memory.js\"",
+            "timeout": 30,
+            "statusMessage": "Memwyre: Loading project memories..."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${GROK_PLUGIN_ROOT:-${CLAUDE_PLUGIN_ROOT}}/scripts/capture-session.js\"",
+            "timeout": 30,
+            "statusMessage": "Memwyre: Capturing session..."
+          }
+        ]
+      }
+    ]
+  }
+}
